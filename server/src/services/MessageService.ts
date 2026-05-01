@@ -67,10 +67,12 @@ export class MessageService {
 
     const messages = await this.repo.find({
       where: { conversationId },
-      order: { sentAt: 'ASC' },
+      order: { sentAt: 'DESC' },
       skip,
       take: safeLimit,
     });
+
+    messages.reverse();
 
     return this.populateMessages(messages, log);
   }

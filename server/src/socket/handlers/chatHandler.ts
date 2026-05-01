@@ -24,7 +24,6 @@ interface MarkReadPayload {
 export function registerChatHandler(io: Server, socket: Socket): void {
   const userId: string = socket.data.userId as string;
   const username: string = socket.data.username as string;
-  const displayName: string = socket.data.displayName as string;
   const baseLog: Logger = socket.data.log as Logger;
 
   socket.on(SocketEvent.SEND_MESSAGE, async (payload: SendMessagePayload) => {
@@ -42,10 +41,10 @@ export function registerChatHandler(io: Server, socket: Socket): void {
         log,
       );
       const response = await messageService.toResponse(message, log);
-      
+
       // Emit to receiver's room and sender's own room
       io.to(payload.receiverId).to(userId).emit(SocketEvent.NEW_MESSAGE, response);
-      
+
       logCanonical(log, { event: 'message.broadcast', status: 'success', durationMs: Date.now() - start, receiverId: payload.receiverId, messageId: response.messageId });
     } catch (err) {
       logCanonical(log, { event: 'message.send', status: 'error', durationMs: Date.now() - start, errorMessage: (err as Error).message });
