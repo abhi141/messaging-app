@@ -13,6 +13,8 @@ interface ChatWindowProps {
   onToggleSidebar?: () => void;
 }
 
+const MAX_MESSAGE_LENGTH = 2000;
+
 export function ChatWindow({ className, onToggleSidebar }: ChatWindowProps) {
   const { activeUserId, messagesByConversation, setMessages, prependMessages, pageByConversation, hasMoreByConversation, users, isConnected, typingUsers } = useChatStore();
   const { user } = useAuthStore();
@@ -188,9 +190,18 @@ export function ChatWindow({ className, onToggleSidebar }: ChatWindowProps) {
               value={inputValue}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
+              maxLength={MAX_MESSAGE_LENGTH}
               placeholder={`Message ${activeUser?.displayName || 'user'}...`}
               className="flex-1 bg-transparent py-3 px-2 outline-none text-white placeholder-text-muted"
             />
+            {inputValue.length > 0 && (
+              <div className={cn(
+                "absolute -top-6 right-4 text-[10px] font-medium",
+                inputValue.length >= MAX_MESSAGE_LENGTH ? "text-red-400" : "text-text-muted"
+              )}>
+                {inputValue.length} / {MAX_MESSAGE_LENGTH}
+              </div>
+            )}
             <button 
               type="button" 
               className="p-3 text-text-muted hover:text-white transition-colors"
