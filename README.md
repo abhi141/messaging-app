@@ -1,4 +1,4 @@
-# Real-Time Messaging Application (Radius Agent Chat)
+# Real-Time Messaging Application
 
 A robust, full-stack 1-to-1 direct messaging platform built with a focus on real-time performance, request traceability, and modern UI/UX.
 
