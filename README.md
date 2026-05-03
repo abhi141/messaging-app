@@ -48,7 +48,7 @@ This project follows strict engineering standards to ensure maintainability and 
 ### 1. Functional Limitations
 *   **Group Chats:** Currently only supports 1-to-1 direct messaging.
 *   **Media Attachments:** The UI includes placeholders for images, but actual file storage (e.g., S3 integration) is not yet implemented.
-*   **Offline Notifications:** Real-time messages are only received when both parties are connected via WebSockets. There is no Push Notification (FCM/APNS) support.
+*   **Offline Notifications:** Real-time messages are only received when both parties are connected via WebSockets. There is no Push Notification support.
 
 ### 2. Technical Limitations
 *   **Storage (Base64):** User avatars are currently stored as Base64 strings directly in MongoDB. While convenient for a POC, this increases database size and memory overhead.
